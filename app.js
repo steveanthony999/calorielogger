@@ -1,11 +1,10 @@
 // ********************************************************************
-// App Controller
+// Storage Controller
 // ********************************************************************
-const App = (function() {
-  // Public methods
+const StorageControl = (function() {
+  // Public Methods
   return {
-    init: function() {
-      //   Check if first visit or returning
+    getUserFromStorage: function() {
       if (localStorage.getItem('user') === null) {
         document.getElementById('new-user').style.display = 'block';
         document.getElementById('returning-user').style.display = 'none';
@@ -16,6 +15,57 @@ const App = (function() {
     }
   };
 })();
+
+// ********************************************************************
+// User Controller
+// ********************************************************************
+const UserControl = (function() {
+  // User Constructor
+  const User = function(name) {
+    this.name = name;
+  };
+
+  const data = {
+    name: StorageControl.getUserFromStorage()
+  };
+
+  //   Public Methods
+  return {
+    getUser: function() {
+      return data;
+    }
+  };
+})();
+
+// ********************************************************************
+// Item Controller
+// ********************************************************************
+
+// ********************************************************************
+// UI Controller
+// ********************************************************************
+const UIControl = (function() {
+  const UISelectors = {
+    userNameInput: '#user-name'
+  };
+
+  //   Public Methods
+  return {};
+})();
+
+// ********************************************************************
+// App Controller
+// ********************************************************************
+const App = (function() {
+  // Public methods
+  return {
+    init: function() {
+      //   Check if first visit or returning
+
+      const items = UserControl.getUser();
+    }
+  };
+})(UIControl);
 
 // ********************************************************************
 // Initialize App
