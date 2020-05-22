@@ -46,26 +46,50 @@ const UserControl = (function() {
 // ********************************************************************
 const UIControl = (function() {
   const UISelectors = {
-    userNameInput: '#user-name'
+    userNameInput: '#user-name',
+    userAddBtn: '.user-add-btn'
   };
 
   //   Public Methods
-  return {};
+  return {
+    getSelectors: function() {
+      return UISelectors;
+    }
+  };
 })();
 
 // ********************************************************************
 // App Controller
 // ********************************************************************
-const App = (function() {
+const App = (function(UserControl, StorageControl, UIControl) {
+  // Load Event Listeners
+  const loadEventListeners = function() {
+    //   Get UI Selectors
+    const UISelectors = UIControl.getSelectors();
+
+    // Add User Event
+    document
+      .querySelector(UISelectors.userAddBtn)
+      .addEventListener('click', userAddSubmit);
+  };
+
+  //   Add User Sbmit
+  const userAddSubmit = function(e) {
+    console.log('User Added');
+    e.preventDefault();
+  };
+
   // Public methods
   return {
     init: function() {
       //   Check if first visit or returning
-
       const items = UserControl.getUser();
+
+      //   Load Event Listeners
+      loadEventListeners();
     }
   };
-})(UIControl);
+})(UserControl, StorageControl, UIControl);
 
 // ********************************************************************
 // Initialize App
